@@ -1,20 +1,64 @@
-import React, {useEffect} from 'react';
-import { Button, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Task from './task';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+export default function App() {
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
 
-export default function TabOneScreen() {
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask(null);
+  };
 
-  useEffect(() => {
-    const url = ''
-  })
+  const completeTask = (index) => {
+    let copy = [...taskItems];
+    copy.splice(index, 1);
+    setTaskItems(copy);
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <View style={styles.tasksWrapper}>
+        <Text style={styles.sectionTitle}>Today's Tasks</Text>
+        <View style={styles.items}>
+          {taskItems.map((item, index) => {
+            return (
+              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                <Task  text={item} />
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
+      >
+        <TextInput
+          style={styles.input}
+          placeholder={"Enter Task Here"}
+          value={task}
+          onChangeText={(text) => setTask(text)}
+        />
+
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -22,16 +66,46 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#E8EAED",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  tasksWrapper: {
+    paddingTop: 80,
+    paddingHorizontal: 20,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
+  items: {
+    marginTop: 30,
+  },
+  writeTaskWrapper: {
+    position: "absolute",
+    bottom: 60,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  input: {
+    paddingVertical: 15,
+    maxWidth: 250,
+    paddingHorizontal: 15,
+    backgroundColor: "#FFF",
+    width: 250,
+    borderRadius: 60,
+    borderWidth: 1,
+    borderColor: "#C0C0C0",
+  },
+  addWrapper: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#FFF",
+    borderRadius: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#C0C0C0",
+    borderWidth: 1,
+  },
+  addText: {},
 });
