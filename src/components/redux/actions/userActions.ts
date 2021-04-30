@@ -24,6 +24,6 @@ export interface ErrorAction {
 export type UserAction = LoginAction | ErrorAction;
 
 // DISPATCH ACTION
-export const onLogin = (email: string, password: string) => {
+export const onLogin = async (email: string, password: string) => {
 
 }
