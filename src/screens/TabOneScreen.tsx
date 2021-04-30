@@ -1,10 +1,15 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import React, {useEffect} from 'react';
+import { Button, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function TabOneScreen() {
+
+  useEffect(() => {
+    const url = ''
+  })
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
