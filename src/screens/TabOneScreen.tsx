@@ -16,17 +16,17 @@ import Task from "./task";
 export default function App() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+  const apiKey = 'bcf0f6c1640f4e15b6617b4d3b28478e';
 
   const handleAddTask = () => {
     Keyboard.dismiss();
-
     setTaskItems([...taskItems, task]);
     setTask(null);
   };
 
   const checkIngredient = async (item) => {
     let ingredient = item.toLowerCase();
-    const ingredientURL = `https://api.spoonacular.com/food/ingredients/search?query=${ingredient}&apiKey=52e9073c47d0416fa76926fc9f22e860`;
+    const ingredientURL = `https://api.spoonacular.com/food/ingredients/search?query=${ingredient}&apiKey=${apiKey}`;
     let ingredients = await fetch(ingredientURL).then((response) =>
       response.json()
     );
@@ -49,14 +49,37 @@ export default function App() {
     }
   };
 
+
+
   const completeTask = (index) => {
     let copy = [...taskItems];
     copy.splice(index, 1);
     setTaskItems(copy);
   };
 
-  const searchForRecipe = () => {
-    console.log("Button pressed");
+  const searchForRecipe = async (ingredients)  =>{
+    let ingredientsString = ingredients.join(',+');
+    // console.log('STRING---->',ingredientsString);
+    const recipeURL = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsString}&apiKey=${apiKey}`;
+    let recipies = await fetch(recipeURL).then((response) =>
+      response.json()
+    );
+    // console.log('RECICPES---->',recipies);
+    recipies.filter((food) =>{
+      console.log('FOOOD----->',food.missedIngredientCount)
+      food.missedIngredientCount < 5;
+    })
+    // console.log('FILTERED RECICPES---->',recipies);
+    let filteredInfo = [];
+    recipies.map((food) => {
+      let infoObj = {
+        name: food.title,
+        imagleURL: food.image
+      }
+      filteredInfo.push(infoObj);
+    })
+    console.log('FILTERED RECICPES---->',filteredInfo);
+
   };
 
   return (
@@ -72,7 +95,7 @@ export default function App() {
                     completeTask(index);
                 }}
               >
-                <Task text={item} />
+                <Task text={item} ingredients = {taskItems} />
               </TouchableOpacity>
             );
           })}
@@ -107,7 +130,7 @@ export default function App() {
             <FontAwesome.Button
               name="search"
               backgroundColor="#3b5998"
-              onPress={searchForRecipe}
+              onPress={async ()=> searchForRecipe(taskItems)}
             >
               Search
             </FontAwesome.Button>
