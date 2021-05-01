@@ -9,10 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 
-import Task from './task';
-
+import Task from "./task";
 
 export default function App() {
   const [task, setTask] = useState();
@@ -20,8 +19,34 @@ export default function App() {
 
   const handleAddTask = () => {
     Keyboard.dismiss();
+
     setTaskItems([...taskItems, task]);
     setTask(null);
+  };
+
+  const checkIngredient = async (item) => {
+    let ingredient = item.toLowerCase();
+    const ingredientURL = `https://api.spoonacular.com/food/ingredients/search?query=${ingredient}&apiKey=52e9073c47d0416fa76926fc9f22e860`;
+    let ingredients = await fetch(ingredientURL).then((response) =>
+      response.json()
+    );
+    console.log("INGREDIENTS----->", ingredients);
+    console.log("INGREDIENT----->", ingredient);
+    if (ingredients === null) {
+      return false;
+    }
+    if (ingredients.results.length !== 0) {
+      if (ingredients.results[0].name == ingredient) {
+        console.log("true");
+        return true;
+      } else {
+        console.log("false");
+        return false;
+      }
+    } else {
+      console.log("false");
+      return false;
+    }
   };
 
   const completeTask = (index) => {
@@ -31,7 +56,7 @@ export default function App() {
   };
 
   const searchForRecipe = () => {
-    console.log('Button pressed');
+    console.log("Button pressed");
   };
 
   return (
@@ -41,8 +66,13 @@ export default function App() {
         <View style={styles.items}>
           {taskItems.map((item, index) => {
             return (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                <Task  text={item} />
+              <TouchableOpacity
+                key={index}
+                onPress={async () => {
+                    completeTask(index);
+                }}
+              >
+                <Task text={item} />
               </TouchableOpacity>
             );
           })}
@@ -60,7 +90,13 @@ export default function App() {
           onChangeText={(text) => setTask(text)}
         />
 
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity
+          onPress={async () => {
+            if ((await checkIngredient(task)) !== false) {
+              handleAddTask();
+            }
+          }}
+        >
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -68,12 +104,15 @@ export default function App() {
 
         <TouchableOpacity>
           <View style={styles.searchBtn}>
-            <FontAwesome.Button name="search" backgroundColor="#3b5998" onPress={searchForRecipe}>
+            <FontAwesome.Button
+              name="search"
+              backgroundColor="#3b5998"
+              onPress={searchForRecipe}
+            >
               Search
             </FontAwesome.Button>
           </View>
         </TouchableOpacity>
-
       </KeyboardAvoidingView>
     </View>
   );
@@ -127,7 +166,7 @@ const styles = StyleSheet.create({
 
   searchBtn: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
