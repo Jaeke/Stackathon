@@ -2,7 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Task = (props) => {
+  console.log('PROPS--->',props);
   return (
+
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.square}></View>
