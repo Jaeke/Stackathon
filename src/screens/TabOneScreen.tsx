@@ -9,7 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+
 import Task from './task';
+
 
 export default function App() {
   const [task, setTask] = useState();
@@ -27,10 +30,14 @@ export default function App() {
     setTaskItems(copy);
   };
 
+  const searchForRecipe = () => {
+    console.log('Button pressed');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's Tasks</Text>
+        <Text style={styles.sectionTitle}>Today's Ingredients</Text>
         <View style={styles.items}>
           {taskItems.map((item, index) => {
             return (
@@ -58,6 +65,15 @@ export default function App() {
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
+
+        <TouchableOpacity>
+          <View style={styles.searchBtn}>
+            <FontAwesome.Button name="search" backgroundColor="#3b5998" onPress={searchForRecipe}>
+              Search
+            </FontAwesome.Button>
+          </View>
+        </TouchableOpacity>
+
       </KeyboardAvoidingView>
     </View>
   );
@@ -108,4 +124,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   addText: {},
+
+  searchBtn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
