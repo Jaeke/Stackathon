@@ -19,6 +19,7 @@ import {
   FontAwesome5
 } from '@expo/vector-icons'
 
+import Login from '../screens/Login';
 import RecipeScreen from '../screens/RecipeScreen'
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../../types';
@@ -69,11 +70,12 @@ function RootNavigator() {
         headerRight: () => (
           <View style={{
             flexDirection: 'row',
-            width: 60,
+            width: 90,
             justifyContent: 'space-between',
             marginRight: 10}
             }>
-            <Octicons name="search" size={22} color={'white'} />
+            <FontAwesome5 name="user-alt" size={21} color={'white'} />
+            <Octicons name="search" size={22} color={'white'} component={Login}/>
             <MaterialCommunityIcons name="dots-vertical" size={22} color={'white'} />
           </View>
         )

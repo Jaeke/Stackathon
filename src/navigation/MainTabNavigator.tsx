@@ -38,21 +38,21 @@ export default function BottomTabNavigator() {
         },
         showIcon: true,
       }}>
-      <BottomTab.Screen
+        <BottomTab.Screen
+          name="Camera"
+          component={TabTwoNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <Fontisto name="camera" color='white' size={18} />,
+            tabBarLabel: () => null
+          }}
+        />
+      {/* <BottomTab.Screen
         name="Login"
         component={Login}
-      />
+      /> */}
       <BottomTab.Screen
         name="Home"
         component={TabOneNavigator}
-      />
-      <BottomTab.Screen
-        name="Camera"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <Fontisto name="camera" color='white' size={18} />,
-          tabBarLabel: () => null
-        }}
       />
     </BottomTab.Navigator>
   );
