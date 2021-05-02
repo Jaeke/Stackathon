@@ -31,21 +31,20 @@ export default function TabOneScreen() {
     let ingredients = await fetch(ingredientURL).then((response) =>
       response.json()
     );
-    console.log('INGREDIENTS----->', ingredients);
-    console.log('INGREDIENT----->', ingredient);
+
     if (ingredients === null) {
       return false;
     }
     if (ingredients.results.length !== 0) {
       if (ingredients.results[0].name == ingredient) {
-        console.log('true');
+
         return true;
       } else {
-        console.log('false');
+
         return false;
       }
     } else {
-      console.log('false');
+
       return false;
     }
   };
@@ -54,29 +53,6 @@ export default function TabOneScreen() {
     let copy = [...taskItems];
     copy.splice(index, 1);
     setTaskItems(copy);
-  };
-
-  // stack navigation for recipe page
-  const searchForRecipe = async () => {
-    // let ingredientsString = ingredients.join(',+');
-    // const recipeURL = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsString}&apiKey=${apiKey}`;
-    // let recipies = await fetch(recipeURL).then((response) =>
-    //   response.json()
-    // );
-    // recipies.filter((food) =>{
-    //   console.log('FOOOD----->',food.missedIngredientCount)
-    //   food.missedIngredientCount < 5;
-    // })
-    // let filteredInfo = [];
-    // recipies.map((food) => {
-    //   let infoObj = {
-    //     name: food.title,
-    //     imagleURL: food.image
-    //   }
-    //   filteredInfo.push(infoObj);
-    // })
-    // console.log('FILTERED RECICPES---->',filteredInfo);
-    console.log('pressed');
   };
 
   return (
@@ -134,7 +110,7 @@ export default function TabOneScreen() {
             </FontAwesome.Button>
           </View>
         </TouchableOpacity> */}
-      <SearchButton />
+      <SearchButton items={taskItems}/>
       </KeyboardAvoidingView>
     </View>
   );
