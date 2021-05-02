@@ -19,9 +19,10 @@ import {
   FontAwesome5
 } from '@expo/vector-icons'
 
+import RecipeScreen from '../screens/RecipeScreen'
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../../types';
-import BottomTabNavigator from './BottomTabNavigator';
+import MainTabNavigator from './MainTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({
@@ -61,8 +62,8 @@ function RootNavigator() {
     >
 
       <Stack.Screen
-      name="Root"
-      component={BottomTabNavigator}
+      name="Home"
+      component={MainTabNavigator}
       options= {{
         title: "Lett-us Eat!",
         headerRight: () => (
@@ -79,6 +80,10 @@ function RootNavigator() {
       }}
       />
 
+      <Stack.Screen
+        name="Recipes"
+        component={RecipeScreen}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
