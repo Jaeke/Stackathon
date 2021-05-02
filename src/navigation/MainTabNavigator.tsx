@@ -3,19 +3,20 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Fontisto } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import Login from '../screens/Login';
-import TabOneScreen from '../screens/TabOneScreen';
+import InputListScreen from '../screens/InputListScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../../types';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialTopTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -23,27 +24,35 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Login"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={{
+        activeTintColor: Colors.dark.text,
+        style: {
+          backgroundColor: Colors[colorScheme].tint
+        },
+        indicatorStyle: {
+          backgroundColor: Colors[colorScheme].background,
+          height: 4,
+        },
+        labelStyle: {
+          fontWeight: 'bold',
+        },
+        showIcon: true,
+      }}>
         <BottomTab.Screen
-          name="Login"
-          component={Login}
+          name="Camera"
+          component={TabTwoNavigator}
           options={{
-            tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+            tabBarIcon: ({ color }) => <Fontisto name="camera" color='white' size={18} />,
+            tabBarLabel: () => null
           }}
         />
+      {/* <BottomTab.Screen
+        name="Login"
+        component={Login}
+      /> */}
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
       />
     </BottomTab.Navigator>
   );
@@ -63,8 +72,8 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
+        name="InputListScreen"
+        component={InputListScreen}
         options={{ headerTitle: 'Ingredients?' }}
       />
     </TabOneStack.Navigator>
