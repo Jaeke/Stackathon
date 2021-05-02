@@ -4,11 +4,12 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
-const SearchButton = () => {
+const SearchButton = (props) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate('Recipes');
+
+    navigation.navigate('Recipes', {props});
   };
 
   return (

@@ -26,11 +26,12 @@ import { RootStackParamList } from '../../types';
 import MainTabNavigator from './MainTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
-export default function Navigation({
+export default function Navigation( {
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -46,6 +47,7 @@ export default function Navigation({
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+
   return (
     <Stack.Navigator
       screenOptions={{
