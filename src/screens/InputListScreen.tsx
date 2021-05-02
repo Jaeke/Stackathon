@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+
 
 import Task from './task';
 import SearchButton from '../components/SearchButton';

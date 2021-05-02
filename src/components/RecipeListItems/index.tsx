@@ -1,9 +1,14 @@
 import React from 'react'
-import {View} from 'react-native'
+import { Text, View } from 'react-native'
 
-const RecipeListItem = () => {
+const RecipeListItem = (props: any) => {
+
+  console.log('pressed')
+
   return (
-    <View></View>
+    <View>
+      <Text>Recipe Item</Text>
+    </View>
   )
 }
 

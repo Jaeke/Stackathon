@@ -2,13 +2,33 @@ import * as React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
 import { View } from '../components/Themed'
 import RecipeListItem from '../components/RecipeListItems'
+import { useEffect } from 'react'
 
 // import users from '../data/Users'
 
-export default function ContactsScreen() {
+export default function RecipeScreen() {
+
+  // useEffect(() => {
+  //   const fetchRecipes = asyn () => {
+  //     try {
+  //       const recipeData = await
+  //     } catch (error) {
+
+  //     }
+  //   }
+  //   fetchRecipes();
+  // }, [])
+
+
+
+
   return (
     <View style={styles.container}>
-      <Text>Recipe Screen</Text>
+      {/* <FlatList
+        style={{width: '100%'}}
+        keyExtractor={(item) => item.id}
+      /> */}
+      <RecipeListItem />
     </View>
   );
 }
