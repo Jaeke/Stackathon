@@ -8,7 +8,7 @@ import { useEffect, useState, Component } from 'react';
 
 export default function RecipeScreen(props) {
   const items = props.route.params.props.items;
-  const apiKey = 'bcf0f6c1640f4e15b6617b4d3b28478e';
+  const apiKey = 'ef00525427ee4597b08ccf0675fa5506';
 
   let [task, setTask] = useState();
 

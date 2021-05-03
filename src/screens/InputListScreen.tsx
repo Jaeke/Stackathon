@@ -17,7 +17,7 @@ import SearchButton from '../components/SearchButton';
 export default function TabOneScreen() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
-  const apiKey = 'bcf0f6c1640f4e15b6617b4d3b28478e';
+  const apiKey = 'ef00525427ee4597b08ccf0675fa5506';
 
   const handleAddTask = () => {
     Keyboard.dismiss();
