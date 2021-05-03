@@ -1,7 +1,8 @@
 import React from 'react'
-import { Text, View, Image, ScrollView } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import styles from './styles';
-import { Card, Paragraph, Title } from 'react-native-paper'
+import { Card, Title } from 'react-native-paper'
+import Loader from '../../services/loader'
 
 const RecipeListItem = (props: any) => {
 
@@ -10,7 +11,7 @@ const RecipeListItem = (props: any) => {
   if(recipes === undefined ||recipes === null){
     return (
     <View>
-      <Text>Loading</Text>
+      <Loader />
     </View>
   )
   }else{
