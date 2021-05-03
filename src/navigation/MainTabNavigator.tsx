@@ -74,7 +74,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="InputListScreen"
         component={InputListScreen}
-        options={{ headerTitle: 'Ingredients?' }}
+        options={{ headerTitle: '', headerShown: false }}
       />
     </TabOneStack.Navigator>
   );
@@ -88,7 +88,7 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerTitle: 'Tab Two Title', headerShown: false }}
       />
     </TabTwoStack.Navigator>
   );

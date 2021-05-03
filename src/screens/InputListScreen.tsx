@@ -8,8 +8,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
 } from 'react-native';
-
 
 import Task from './task';
 import SearchButton from '../components/SearchButton';
@@ -17,7 +17,7 @@ import SearchButton from '../components/SearchButton';
 export default function TabOneScreen() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
-  const apiKey = 'bcf0f6c1640f4e15b6617b4d3b28478e';
+  const apiKey = 'ef00525427ee4597b08ccf0675fa5506';
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -37,14 +37,11 @@ export default function TabOneScreen() {
     }
     if (ingredients.results.length !== 0) {
       if (ingredients.results[0].name == ingredient) {
-
         return true;
       } else {
-
         return false;
       }
     } else {
-
       return false;
     }
   };
@@ -57,23 +54,25 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's Ingredients:</Text>
-        <View style={styles.items}>
-          {taskItems.map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                onPress={async () => {
-                  completeTask(index);
-                }}
-              >
-                <Task text={item} ingredients={taskItems} />
-              </TouchableOpacity>
-            );
-          })}
+      <ScrollView>
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Today's Ingredients:</Text>
+          <View style={styles.items}>
+            {taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={async () => {
+                    completeTask(index);
+                  }}
+                >
+                  <Task text={item} ingredients={taskItems} />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -98,19 +97,7 @@ export default function TabOneScreen() {
           </View>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity>
-          <View style={styles.searchBtn}>
-            <FontAwesome.Button
-              name="search"
-              backgroundColor="#3b5998"
-              // onPress={async ()=> searchForRecipe(taskItems)}
-              onPress={searchForRecipe}
-            >
-              Search
-            </FontAwesome.Button>
-          </View>
-        </TouchableOpacity> */}
-      <SearchButton items={taskItems}/>
+        <SearchButton items={taskItems} />
       </KeyboardAvoidingView>
     </View>
   );
